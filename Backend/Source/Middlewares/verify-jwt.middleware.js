@@ -1,5 +1,5 @@
-import { AuthUser } from "../models/user-auth.model.js";
-import { apiError } from "../utils/apiError.js";
+import { AuthUser } from "../Models/user-auth.model.js";
+import { apiError } from "../Utils/apiError.js";
 import jwt from "jsonwebtoken";
 console.log("Token candidate:");
 export const verifyJWT = async (req, res, next) => {
