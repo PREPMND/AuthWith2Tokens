@@ -55,9 +55,11 @@ export const registerUser = async (req, res,next) => {
 }
 
 export const logoutUser = async (req, res) => {
-    const { message } = userLogoutService(req.validatedUser);
+    console.log(req);
+    
+    const { message } =await userLogoutService(req);
 
-    if (message !== "succesfull") {
+    if (message !== "successfull") {
         throw new apiError(400, "Logout was not succesfull")
     }
 
@@ -73,3 +75,54 @@ export const logoutUser = async (req, res) => {
 
     return res.status(200).json(new apiResponse(200,"User Logged Out Successfully"));
 }
+
+const refreshAccessToken = async (req, res) => {
+
+    const incomingRefreshToken =
+        req.cookies?.refreshToken || req.body?.refreshToken;
+
+    if (!incomingRefreshToken) {
+        throw new apiError(401, "Unauthorized Request");
+    }
+
+    const decodedToken = jwt.verify(
+        incomingRefreshToken,
+        process.env.REFRESH_TOKEN_SECURITY
+    );
+    console.log("cookie:", incomingRefreshToken);
+
+    const user = await AuthUser.findById(decodedToken?._id);
+    console.log("user")
+
+    if (!user) {
+        throw new apiError(401, "Invalid RefreshToken");
+    }
+
+
+    if (incomingRefreshToken !== user.refreshToken) {
+        throw new apiError(401, "Refresh token is expired or used");
+    }
+    const isProd = process.env.NODE_ENV === "production";
+
+    res.cookie("refreshToken", token, {
+        httpOnly: true,                     // always true
+        secure: isProd,                     // only true in production
+        sameSite: isProd ? "none" : "lax",  // "none" for prod cross-domain, "lax" for localhost
+    });
+    ;
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
+
+    return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(new apiResponse(200, {}, "access token refreshed"));
+};
+
+export const getCurrentUser = (req, res) => {
+    console.log("INSIDE");
+    return res.json({
+        success: true,
+        user: req.validatedUser,
+    });
+};

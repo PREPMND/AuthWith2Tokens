@@ -1,13 +1,13 @@
 import { AuthUser } from "../Models/user-auth.model.js";
 import { apiError } from "../Utils/apiError.js";
 
-export const userLogoutService=async(query)=>{
+export const userLogoutService=async(req)=>{
     try {
-        const {validatedUser}=query;
+        const validatedUser=req.validatedUser;
         if(!validatedUser){
             throw new apiError(500,"validatedUser was not found");
         }
-        const user=req.validatedUser;
+        const user=validatedUser;
         const updatedUser=await AuthUser.findByIdAndUpdate(
             user._id,
             {$set:{refreshToken:undefined}},
@@ -16,7 +16,8 @@ export const userLogoutService=async(query)=>{
         if(!updatedUser){
             throw new apiError(400,"Something went wrong while logging user out");
         }
-        if(updatedUser.refreshToken!==undefined){
+        console.log(updatedUser.refreshToken)
+        if(updatedUser.refreshToken!=undefined){
             throw new apiError(401,"Logout process was declined by database");
         }
         return {
@@ -24,6 +25,6 @@ export const userLogoutService=async(query)=>{
             "successfull"
         }
     } catch (error) {
-        throw new apiError(401,`Server responded with : ${error.message}`);
+        throw error;
     }
 }
