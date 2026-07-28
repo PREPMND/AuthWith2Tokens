@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-
+//didnt do any error handling as mongoose alreadt takes care ofthat
 export const authUserPlugin = (AuthUserSchema) => {
     AuthUserSchema.pre("save", async function () {
         if (!this.isModified("password")) return;
@@ -8,12 +8,7 @@ export const authUserPlugin = (AuthUserSchema) => {
     });
 
     AuthUserSchema.methods.isPasswordCorrect = async function (password) {
-        console.log("Entered:", password);
-        console.log("Stored Hash:", this.password);
-
         const result = await bcrypt.compare(password, this.password);
-
-        console.log("Compare Result:", result);
         return result;
     };
 

@@ -53,9 +53,9 @@ export const Login = () => {
     }, []);
     return (
         <>
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="w-[90%] mt-6 m-auto space-y-5">
                 <div>
-                    <label className="block mb-2 font-medium">
+                    <label className="block mb-2 text-[20px] font-medium">
                         Email
                     </label>
                     <input
@@ -70,7 +70,7 @@ export const Login = () => {
                     OR
                 </div>
                 <div>
-                    <label className="block mb-2 font-medium">
+                    <label className="block mb-2 text-[20px] font-medium">
                         Username
                     </label>
                     <input
@@ -82,7 +82,7 @@ export const Login = () => {
                     />
                 </div>
                 <div>
-                    <label className="block mb-2 font-medium">
+                    <label className="block mb-2 text-[20px] font-medium">
                         Password
                     </label>
                     <input
