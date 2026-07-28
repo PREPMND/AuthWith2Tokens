@@ -18,7 +18,6 @@ export const refreshAccessToken = async () => {
 };
 export const getCurrentUser = async () => {
     const { data } = await api.get("/users/currentuser");
-    console.log(data.user);
         
     return data;
 };

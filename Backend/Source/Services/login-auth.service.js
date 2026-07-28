@@ -22,7 +22,6 @@ export const userLoginService = async (query) => {
         }
     
         const isPasswordValid = await userDetails.isPasswordCorrect(password);
-        console.log(isPasswordValid);
         
         if (!isPasswordValid) {
             console.log(throwing);
