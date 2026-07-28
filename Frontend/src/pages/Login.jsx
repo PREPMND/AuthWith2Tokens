@@ -99,6 +99,12 @@ export const Login = () => {
                 >
                     Sign In
                 </button>
+
+                <div 
+                onClick={()=>navigate("/register")}
+                className="text-[14px] text-center cursor-pointer text-gray-600">
+                    Register a new account
+                </div>
             </form>
         </>
     );
