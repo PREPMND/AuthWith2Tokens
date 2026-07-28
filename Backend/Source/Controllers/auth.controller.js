@@ -38,7 +38,6 @@ export const registerUser = async (req, res,next) => {
         console.log("enterd");
         
         const { createdUser } = await userRegisterService(req.validatedBody);
-        console.log(createdUser);
         
         return res
             .status(200)
@@ -55,7 +54,6 @@ export const registerUser = async (req, res,next) => {
 }
 
 export const logoutUser = async (req, res) => {
-    console.log(req);
     
     const { message } =await userLogoutService(req);
 

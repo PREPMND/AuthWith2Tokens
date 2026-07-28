@@ -44,6 +44,7 @@ export const Login = () => {
             try {
                 await getCurrentUser();
             } catch (error) {
+                console.log(error.message)
                 navigate("/login");
             }
         };
@@ -53,93 +54,45 @@ export const Login = () => {
     return (
         <>
             <form onSubmit={handleSubmit} className="space-y-5">
-                {/* all your inputs */}
-
-
                 <div>
-
                     <label className="block mb-2 font-medium">
-
                         Email
-
                     </label>
-
                     <input
-
                         type="email"
-
                         placeholder="Enter your email"
-
                         value={email}
-
                         onChange={(e) => setEmail(e.target.value)}
-
                         className="w-full rounded-lg border border-gray-300 p-3"
-
                     />
-
                 </div>
-
-
-
                 <div className="text-center text-gray-500 font-medium">
-
                     OR
-
                 </div>
-
-
-
                 <div>
-
                     <label className="block mb-2 font-medium">
-
                         Username
-
                     </label>
-
                     <input
-
                         type="text"
-
                         placeholder="Enter your username"
-
                         value={username}
-
                         onChange={(e) => setUsername(e.target.value)}
-
                         className="w-full rounded-lg border border-gray-300 p-3"
-
                     />
-
                 </div>
-
-
-
                 <div>
-
                     <label className="block mb-2 font-medium">
-
                         Password
-
                     </label>
-
                     <input
-
                         type="password"
-
                         placeholder="Enter your password"
-
                         value={password}
-
                         onChange={(e) => setPassword(e.target.value)}
-
                         className="w-full rounded-lg border border-gray-300 p-3"
-
                     />
-
                 </div>
-
                 <button
                     type="submit"
                     className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700"

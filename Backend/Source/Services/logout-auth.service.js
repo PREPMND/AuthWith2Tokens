@@ -10,15 +10,11 @@ export const userLogoutService=async(req)=>{
         const user=validatedUser;
         const updatedUser=await AuthUser.findByIdAndUpdate(
             user._id,
-            {$set:{refreshToken:undefined}},
+            {$set:{refreshToken:""}},
             {new:true}
         ).select("refreshToken");
-        if(!updatedUser){
+        if(!updatedUser || updatedUser.refreshToken!=''){
             throw new apiError(400,"Something went wrong while logging user out");
-        }
-        console.log(updatedUser.refreshToken)
-        if(updatedUser.refreshToken!=undefined){
-            throw new apiError(401,"Logout process was declined by database");
         }
         return {
             message:
