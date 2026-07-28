@@ -53,7 +53,7 @@ export const Login = () => {
     }, []);
     return (
         <>
-            <form onSubmit={handleSubmit} className="w-[90%] mt-6 m-auto space-y-5">
+            <form onSubmit={handleSubmit} className="w-[90%] sm:max-w-[50%] mt-6 m-auto space-y-5">
                 <div>
                     <label className="block mb-2 text-[20px] font-medium">
                         Email
@@ -93,16 +93,19 @@ export const Login = () => {
                         className="w-full rounded-lg border border-gray-300 p-3"
                     />
                 </div>
-                <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700"
-                >
-                    Sign In
-                </button>
+                <div className="text-center">
+                    <button
+                        type="submit"
+                        className="w-[60%]  bg-blue-600 hover:bg-blue-800 h text-white py-3 rounded-lg font-semibold  transition-all duration-300 ease-in-out hover:scale-[1.02]"
+                    >
+                        Sign In
+                    </button>
+                </div>
 
-                <div 
-                onClick={()=>navigate("/register")}
-                className="text-[14px] text-center cursor-pointer text-gray-600">
+
+                <div
+                    onClick={() => navigate("/register")}
+                    className="text-[14px] text-center cursor-pointer hover:underline text-gray-600">
                     Register a new account
                 </div>
             </form>
